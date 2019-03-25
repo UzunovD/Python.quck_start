@@ -56,6 +56,7 @@ while ans != 'q':
                                    'операции:\n')
                 if dupl_files == 'q':
                     break  # прекащаем дублирование
+                elif os.path.isfile()
                 newfile = dupl_files + '.dupl'
                 shutil.copy(dupl_files, newfile)
                 print('Дублирование файлов выполено успешно!')
