@@ -30,7 +30,8 @@ def remove_duple(directory):
         fullname = os.path.join(directory, f)
         if fullname.endswith('.dupl'):
             os.remove(fullname)
-            count += 1
+            if not os.path.exists(fullname):
+                count += 1
             continue
     if count == 0:
         print('Дубликатов, оканчивающихся на .dupl нет')
