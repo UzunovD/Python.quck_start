@@ -2,6 +2,9 @@ import math
 import random
 import turtle
 
+phi = 360 / 7
+r = 50
+
 
 def gotoxy(x, y):
     turtle.penup()
@@ -16,48 +19,45 @@ def drew_circle(r, color):
     turtle.end_fill()
 
 
-def drew_patronnik(phi, r):
-    for i in range(start, 7):
+def drew_baraban(base_x, base_y):
+    gotoxy(base_x, base_y)
+    turtle.circle(80)
+    gotoxy(base_x, base_y + 160)
+    drew_circle(5, "red")
+
+    for i in range(0, 7):
         phi_rad = phi * i * math.pi / 180.0
-        gotoxy(math.sin(phi_rad) * r, math.cos(phi_rad) * r + 60)
+        gotoxy(base_x + math.sin(phi_rad) * r, base_y + math.cos(phi_rad) * r +
+               60)
         drew_circle(22, "white")
 
 
-def turn_baraban(phi, r):
-        gotoxy(math.sin(phi_rad) * r, math.cos(phi_rad) * r + 60)
+def turn_baraban(base_x, base_y, start):
+    for i in range(start, random.randrange(7, 28)):
+        phi_rad = phi * i * math.pi / 180.0
+        gotoxy(base_x + math.sin(phi_rad) * r, base_y + math.cos(phi_rad) * r +
+               60)
         drew_circle(22, "brown")
         drew_circle(22, "white")
 
+    gotoxy(base_x +math.sin(phi_rad) * r, base_y + math.cos(phi_rad) * r + 60)
+    drew_circle(22, "brown")
 
-def drew_baraban(x,y):
-    gotoxy(x, y)
-    turtle.circle(80)
-    gotoxy(x, y+160)
-    drew_circle(5, "red")
+    return i % 7
+
 
 turtle.speed(0)
 
-drew_baraban(0, 0)
+drew_baraban(-50, 100)
 
-phi = 360 / 7
-r = 50
 start = 0
 answer = ""
-
-drew_patronnik(phi, r)
 
 while answer != "n":
     answer = turtle.textinput("Играем в Русскую рулетку?", "y/n")
     if answer == "y":
+        start = turn_baraban(-50, 100, start)
 
-        for i in range(start, random.randrange(7, 28)):
-            phi_rad = phi * i * math.pi / 180.0
-            turn_baraban(phi, r)
-
-        gotoxy(math.sin(phi_rad) * r, math.cos(phi_rad) * r + 60)
-        drew_circle(22, "brown")
-
-        start = i % 7
         if start == 0:
             gotoxy(-150, 250)
             turtle.write("Game over!", font=("Keystroke", 32, "normal"))
